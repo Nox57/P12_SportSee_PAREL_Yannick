@@ -1,0 +1,33 @@
+.sidemenu {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-around;
+    background: #000000;
+    height: 857px;
+    width: 117px;
+}
+
+.sidemenu--icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidemenu--icons img {
+    margin-bottom: 20px;
+}
+
+.sidemenu--copyright {
+    transform: rotate(-90deg);
+    color: #ffffff;
+    width: 200px;
+    margin-left: -42px;
+    margin-bottom: 60px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 24px;
+}

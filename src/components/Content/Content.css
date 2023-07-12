@@ -1,0 +1,27 @@
+.dashboard {
+    margin-top: 60px;
+    margin-left: 100px;
+}
+
+.dashboard span {
+    color: #ff0101;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.charts {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.charts .chart-top,
+.charts .charts-bottom {
+    flex: 1;
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid red;
+}

@@ -1,0 +1,14 @@
+.keydata {
+    display: flex;
+    margin: 10px;
+    padding: 20px;
+    background-color: #fbfbfb;
+    border-radius: 5px;
+    width: 260px;
+    height: 130px;
+}
+
+.keydata img {
+    width: 60px;
+    height: 60px;
+}
