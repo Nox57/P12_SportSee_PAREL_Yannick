@@ -6,7 +6,7 @@ import Muscu from '../../assets/muscu.svg'
 
 function SideMenu() {
     return (
-        <div className="sidemenu">
+        <aside className="sidemenu">
             <div className="sidemenu--icons">
                 <img src={Yoga} alt="Yoga" width="64px" height="64px" />
                 <img src={Natation} alt="Natation" width="64px" height="64px" />
@@ -14,7 +14,7 @@ function SideMenu() {
                 <img src={Muscu} alt="Muscu" width="64px" height="64px" />
             </div>
             <div className="sidemenu--copyright">Copyright SportSee 2023</div>
-        </div>
+        </aside>
     )
 }
 

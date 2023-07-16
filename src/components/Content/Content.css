@@ -25,3 +25,10 @@
     padding: 20px;
     border: 1px solid red;
 }
+
+.nutriments {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-left: 31px;
+}
