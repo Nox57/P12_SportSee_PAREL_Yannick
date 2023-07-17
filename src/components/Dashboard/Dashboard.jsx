@@ -31,6 +31,15 @@ function Dashboard() {
         }
     }, [data, error])
 
+    if (!currentUser) {
+        return (
+            // Todo redirection page 404 ( + ajout route * ) ?
+            <main className="dashboard">
+                <h1>Aucun utilisateur trouvé</h1>
+            </main>
+        )
+    }
+
     return (
         <main className="dashboard">
             <h1>
