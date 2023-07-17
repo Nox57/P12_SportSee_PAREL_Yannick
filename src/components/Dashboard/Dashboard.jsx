@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import KeyData from '../KeyData/KeyData'
-import './Content.css'
+import './Dashboard.css'
 import { USER_MAIN_DATA } from '../../datas/data.js'
 import CaloriesImg from '../../assets/calories.svg'
 import ProteineImg from '../../assets/proteine.svg'
@@ -22,7 +22,7 @@ function Content() {
     }, [currentUser])
 
     return (
-        <div className="dashboard">
+        <main className="dashboard">
             <h1>
                 Bonjour{' '}
                 {currentUser ? (
@@ -71,7 +71,7 @@ function Content() {
                     )}
                 </div>
             </div>
-        </div>
+        </main>
     )
 }
 
