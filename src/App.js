@@ -10,6 +10,7 @@ function App() {
             <div style={{ display: 'flex' }}>
                 <SideMenu />
                 <Routes>
+                    <Route path="/user/:id" element={<Dashboard />} />
                     <Route path="/" element={<Dashboard />} />
                 </Routes>
             </div>
