@@ -31,6 +31,18 @@ function Dashboard() {
         }
     }, [data, error])
 
+    // Si userId est indéfini ou vide, on retourne une erreur ou on peut rediriger vers une autre page.
+    if (!userId) {
+        return (
+            <main className="dashboard">
+                <h1>Aucun utilisateur saisi</h1>
+                <p>
+                    Veuillez ajouter " /user/"ID de l'utilisateur" " dans l'URL.
+                </p>
+            </main>
+        )
+    }
+
     if (!currentUser) {
         return (
             <main className="dashboard">
