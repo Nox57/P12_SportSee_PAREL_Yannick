@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts'
 // Components
 import KeyData from '../KeyData/KeyData'
 // Hooks
 import useFetch from '../../hooks/useFetch'
 // Mocked Data
-import { USER_MAIN_DATA } from '../../datas/data.js'
+import { USER_MAIN_DATA, USER_PERFORMANCE } from '../../datas/data.js'
 // Css
 import './Dashboard.css'
 // Assets
@@ -15,11 +14,17 @@ import ProteineImg from '../../assets/proteine.svg'
 import GlucidesImg from '../../assets/glucides.svg'
 import LipidesImg from '../../assets/lipides.svg'
 import ScorePieChart from '../charts/ScorePieChart/ScorePieChart'
+import PerformanceRadarChart from '../charts/PerformanceRadarChart/PerformanceRadarChart'
 
 function Dashboard() {
     const { id: userId } = useParams() // Récupérer l'ID de l'utilisateur de la route
     const { data, error } = useFetch(`http://localhost:3000/user/${userId}`)
+    const { data: performanceData, error: performanceError } = useFetch(
+        `http://localhost:3000/user/${userId}/performance`
+    )
+
     const [currentUser, setCurrentUser] = useState(null)
+    const [userPerformance, setUserPerformance] = useState(null)
 
     useEffect(() => {
         if (!error && data) {
@@ -33,6 +38,14 @@ function Dashboard() {
         }
     }, [data, error])
 
+    useEffect(() => {
+        if (!performanceError && performanceData) {
+            setUserPerformance(performanceData.data)
+        } else {
+            setUserPerformance(USER_PERFORMANCE[0])
+        }
+    }, [performanceData, performanceError])
+
     // Si userId est indéfini ou vide, on retourne une erreur ou on peut rediriger vers une autre page.
     if (!userId) {
         return (
@@ -45,7 +58,7 @@ function Dashboard() {
         )
     }
 
-    if (!currentUser) {
+    if (!currentUser || !userPerformance) {
         return (
             <main className="dashboard">
                 <h1>Aucun utilisateur trouvé</h1>
@@ -71,6 +84,9 @@ function Dashboard() {
                         Graphique Poids / Calories brûlées (SimpleBarChart)
                     </div>
                     <div className="charts-bottom">
+                        <PerformanceRadarChart
+                            performanceData={userPerformance}
+                        />
                         <ScorePieChart
                             score={currentUser.todayScore || currentUser.score}
                         />
