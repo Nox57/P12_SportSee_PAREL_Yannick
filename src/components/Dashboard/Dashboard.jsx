@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts'
 // Components
 import KeyData from '../KeyData/KeyData'
 // Hooks
@@ -13,6 +14,7 @@ import CaloriesImg from '../../assets/calories.svg'
 import ProteineImg from '../../assets/proteine.svg'
 import GlucidesImg from '../../assets/glucides.svg'
 import LipidesImg from '../../assets/lipides.svg'
+import ScorePieChart from '../charts/ScorePieChart/ScorePieChart'
 
 function Dashboard() {
     const { id: userId } = useParams() // Récupérer l'ID de l'utilisateur de la route
@@ -69,9 +71,9 @@ function Dashboard() {
                         Graphique Poids / Calories brûlées (SimpleBarChart)
                     </div>
                     <div className="charts-bottom">
-                        <div>Graphique</div>
-                        <div>Graphique (SimpleRadarChart)</div>
-                        <div>Graphique KPI</div>
+                        <ScorePieChart
+                            score={currentUser.todayScore || currentUser.score}
+                        />
                     </div>
                 </div>
                 <div className="nutriments">
