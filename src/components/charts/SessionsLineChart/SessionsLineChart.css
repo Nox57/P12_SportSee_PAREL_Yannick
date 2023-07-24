@@ -1,0 +1,41 @@
+.sessions_container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 258px;
+    height: 263px;
+    background: #ff0000;
+    border-radius: 5px;
+    font-family: 'Roboto';
+}
+
+.sessions_container h2 {
+    position: absolute;
+    top: 29px;
+    left: 34px;
+    max-width: 140px;
+    margin: 0;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 24px;
+    color: #ffffff;
+    opacity: 0.5;
+}
+
+.custom-tooltip {
+    background-color: #ffffff;
+}
+
+.custom-tooltip p {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 8px;
+    line-height: 24px;
+    text-align: center;
+    color: #000000;
+    margin: 0 7px 0 7px;
+}

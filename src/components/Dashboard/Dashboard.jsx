@@ -5,7 +5,11 @@ import KeyData from '../KeyData/KeyData'
 // Hooks
 import useFetch from '../../hooks/useFetch'
 // Mocked Data
-import { USER_MAIN_DATA, USER_PERFORMANCE } from '../../datas/data.js'
+import {
+    USER_MAIN_DATA,
+    USER_PERFORMANCE,
+    USER_AVERAGE_SESSIONS,
+} from '../../datas/data.js'
 // Css
 import './Dashboard.css'
 // Assets
@@ -15,6 +19,7 @@ import GlucidesImg from '../../assets/glucides.svg'
 import LipidesImg from '../../assets/lipides.svg'
 import ScorePieChart from '../charts/ScorePieChart/ScorePieChart'
 import PerformanceRadarChart from '../charts/PerformanceRadarChart/PerformanceRadarChart'
+import SessionsLineChart from '../charts/SessionsLineChart/SessionsLineChart'
 
 function Dashboard() {
     const { id: userId } = useParams() // Récupérer l'ID de l'utilisateur de la route
@@ -22,9 +27,13 @@ function Dashboard() {
     const { data: performanceData, error: performanceError } = useFetch(
         `http://localhost:3000/user/${userId}/performance`
     )
+    const { data: sessionsData, error: sessionsError } = useFetch(
+        `http://localhost:3000/user/${userId}/average-sessions`
+    )
 
     const [currentUser, setCurrentUser] = useState(null)
     const [userPerformance, setUserPerformance] = useState(null)
+    const [userSessions, setUserSessions] = useState(null)
 
     useEffect(() => {
         if (!error && data) {
@@ -46,6 +55,17 @@ function Dashboard() {
         }
     }, [performanceData, performanceError])
 
+    useEffect(() => {
+        if (!sessionsError && sessionsData && sessionsData.data) {
+            setUserSessions(sessionsData.data.sessions)
+        } else {
+            const sessions = USER_AVERAGE_SESSIONS.find(
+                (session) => session.userId === Number(userId)
+            )
+            setUserSessions(sessions ? sessions.sessions : [])
+        }
+    }, [sessionsData, sessionsError, userId])
+
     // Si userId est indéfini ou vide, on retourne une erreur ou on peut rediriger vers une autre page.
     if (!userId) {
         return (
@@ -58,7 +78,7 @@ function Dashboard() {
         )
     }
 
-    if (!currentUser || !userPerformance) {
+    if (!currentUser || !userPerformance || !userSessions) {
         return (
             <main className="dashboard">
                 <h1>Aucun utilisateur trouvé</h1>
@@ -84,6 +104,7 @@ function Dashboard() {
                         Graphique Poids / Calories brûlées (SimpleBarChart)
                     </div>
                     <div className="charts-bottom">
+                        <SessionsLineChart sessions={userSessions} />
                         <PerformanceRadarChart
                             performanceData={userPerformance}
                         />
