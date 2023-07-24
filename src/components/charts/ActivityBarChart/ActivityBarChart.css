@@ -1,0 +1,68 @@
+.activity_container {
+    position: relative;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    width: 835px;
+    height: 320px;
+    background: #fbfbfb;
+    border-radius: 5px;
+    font-family: 'Roboto';
+}
+
+.activity_container h2 {
+    position: absolute;
+    top: 29px;
+    left: 34px;
+    max-width: 140px;
+    margin: 0;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0px;
+    color: #20253a;
+}
+
+.activity_container .custom-tooltip {
+    background-color: #e60000;
+}
+
+.activity_container .custom-tooltip p {
+    color: #ffffff;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 7px;
+    line-height: 24px;
+}
+
+.activity_container .legend_container {
+    position: absolute;
+    top: 29px;
+    right: 29px;
+    margin: 0;
+}
+
+.activity_container .legend_container {
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.activity_container .legend_container span {
+    margin-left: 40px;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.activity_container .legend_container .red {
+    color: #e60000;
+}
+
+.activity_container .legend_container .grey {
+    color: #282d30;
+}

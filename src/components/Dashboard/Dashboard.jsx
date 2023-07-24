@@ -9,6 +9,7 @@ import {
     USER_MAIN_DATA,
     USER_PERFORMANCE,
     USER_AVERAGE_SESSIONS,
+    USER_ACTIVITY,
 } from '../../datas/data.js'
 // Css
 import './Dashboard.css'
@@ -20,6 +21,7 @@ import LipidesImg from '../../assets/lipides.svg'
 import ScorePieChart from '../charts/ScorePieChart/ScorePieChart'
 import PerformanceRadarChart from '../charts/PerformanceRadarChart/PerformanceRadarChart'
 import SessionsLineChart from '../charts/SessionsLineChart/SessionsLineChart'
+import ActivityBarChart from '../charts/ActivityBarChart/ActivityBarChart'
 
 function Dashboard() {
     const { id: userId } = useParams() // Récupérer l'ID de l'utilisateur de la route
@@ -30,10 +32,14 @@ function Dashboard() {
     const { data: sessionsData, error: sessionsError } = useFetch(
         `http://localhost:3000/user/${userId}/average-sessions`
     )
+    const { data: activityData, error: activityError } = useFetch(
+        `http://localhost:3000/user/${userId}/activity`
+    )
 
     const [currentUser, setCurrentUser] = useState(null)
     const [userPerformance, setUserPerformance] = useState(null)
     const [userSessions, setUserSessions] = useState(null)
+    const [userActivity, setUserActivity] = useState(null)
 
     useEffect(() => {
         if (!error && data) {
@@ -65,6 +71,17 @@ function Dashboard() {
             setUserSessions(sessions ? sessions.sessions : [])
         }
     }, [sessionsData, sessionsError, userId])
+
+    useEffect(() => {
+        if (!activityError && activityData.data) {
+            setUserActivity(activityData.data.sessions)
+        } else {
+            const activity = USER_ACTIVITY.find(
+                (activity) => activity.userId === Number(userId)
+            )
+            setUserActivity(activity ? activity.sessions : [])
+        }
+    }, [activityData, activityError, userId])
 
     // Si userId est indéfini ou vide, on retourne une erreur ou on peut rediriger vers une autre page.
     if (!userId) {
@@ -101,7 +118,7 @@ function Dashboard() {
             <div className="container">
                 <div className="charts">
                     <div className="chart-top">
-                        Graphique Poids / Calories brûlées (SimpleBarChart)
+                        <ActivityBarChart activityData={userActivity} />
                     </div>
                     <div className="charts-bottom">
                         <SessionsLineChart sessions={userSessions} />
