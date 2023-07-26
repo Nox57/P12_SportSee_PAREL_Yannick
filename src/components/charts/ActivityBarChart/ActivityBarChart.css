@@ -1,7 +1,7 @@
 .activity_container {
     position: relative;
     display: flex;
-    align-items: end;
+    align-items: flex-end;
     justify-content: center;
     width: 835px;
     height: 320px;
@@ -16,7 +16,7 @@
     left: 34px;
     max-width: 140px;
     margin: 0;
-    font-family: Roboto;
+    font-family: 'Roboto';
     font-size: 15px;
     font-weight: 500;
     line-height: 24px;
@@ -45,7 +45,7 @@
 }
 
 .activity_container .legend_container {
-    font-family: Roboto;
+    font-family: 'Roboto';
     font-size: 14px;
     font-weight: 500;
     line-height: 24px;
