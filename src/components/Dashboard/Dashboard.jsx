@@ -49,17 +49,23 @@ function Dashboard() {
         } else {
             // On utilise les données mockées si une erreur s'est produite lors de la récupération des données de l'API
             console.log('Données mockées')
-            setCurrentUser(USER_MAIN_DATA[0])
+            const user = USER_MAIN_DATA.find(
+                (user) => user.id === Number(userId)
+            )
+            setCurrentUser(user ? user : null)
         }
-    }, [data, error])
+    }, [data, error, userId])
 
     useEffect(() => {
         if (!performanceError && performanceData) {
             setUserPerformance(performanceData.data)
         } else {
-            setUserPerformance(USER_PERFORMANCE[0])
+            const performance = USER_PERFORMANCE.find(
+                (performance) => performance.userId === Number(userId)
+            )
+            setUserPerformance(performance ? performance : null)
         }
-    }, [performanceData, performanceError])
+    }, [performanceData, performanceError, userId])
 
     useEffect(() => {
         if (!sessionsError && sessionsData && sessionsData.data) {
@@ -95,7 +101,7 @@ function Dashboard() {
         )
     }
 
-    if (!currentUser || !userPerformance || !userSessions) {
+    if (!currentUser || !userPerformance || !userSessions || !userActivity) {
         return (
             <main className="dashboard">
                 <h1>Aucun utilisateur trouvé</h1>
