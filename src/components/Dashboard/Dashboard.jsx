@@ -2,15 +2,8 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 // Components
 import KeyData from '../KeyData/KeyData'
-// Hooks
-import useFetch from '../../hooks/useFetch'
-// Mocked Data
-import {
-    USER_MAIN_DATA,
-    USER_PERFORMANCE,
-    USER_AVERAGE_SESSIONS,
-    USER_ACTIVITY,
-} from '../../datas/data.js'
+// Services
+import UserDataService from '../../services/UserDataService'
 // Css
 import './Dashboard.css'
 // Assets
@@ -24,70 +17,18 @@ import SessionsLineChart from '../charts/SessionsLineChart/SessionsLineChart'
 import ActivityBarChart from '../charts/ActivityBarChart/ActivityBarChart'
 
 function Dashboard() {
-    const { id: userId } = useParams() // Récupérer l'ID de l'utilisateur de la route
-    const { data, error } = useFetch(`http://localhost:3000/user/${userId}`)
-    const { data: performanceData, error: performanceError } = useFetch(
-        `http://localhost:3000/user/${userId}/performance`
-    )
-    const { data: sessionsData, error: sessionsError } = useFetch(
-        `http://localhost:3000/user/${userId}/average-sessions`
-    )
-    const { data: activityData, error: activityError } = useFetch(
-        `http://localhost:3000/user/${userId}/activity`
-    )
+    const { id: userId } = useParams()
 
     const [currentUser, setCurrentUser] = useState(null)
-    const [userPerformance, setUserPerformance] = useState(null)
-    const [userSessions, setUserSessions] = useState(null)
-    const [userActivity, setUserActivity] = useState(null)
 
     useEffect(() => {
-        if (!error && data) {
-            // On utilise les données de l'API si elles sont disponibles et si aucune erreur n'est survenue
-            console.log("Données de l'API")
-            setCurrentUser(data.data)
-        } else {
-            // On utilise les données mockées si une erreur s'est produite lors de la récupération des données de l'API
-            console.log('Données mockées')
-            const user = USER_MAIN_DATA.find(
-                (user) => user.id === Number(userId)
-            )
-            setCurrentUser(user ? user : null)
+        async function fetchData() {
+            const user = await UserDataService.getUserData(userId)
+            setCurrentUser(user)
         }
-    }, [data, error, userId])
 
-    useEffect(() => {
-        if (!performanceError && performanceData) {
-            setUserPerformance(performanceData.data)
-        } else {
-            const performance = USER_PERFORMANCE.find(
-                (performance) => performance.userId === Number(userId)
-            )
-            setUserPerformance(performance ? performance : null)
-        }
-    }, [performanceData, performanceError, userId])
-
-    useEffect(() => {
-        if (!sessionsError && sessionsData && sessionsData.data) {
-            setUserSessions(sessionsData.data.sessions)
-        } else {
-            const sessions = USER_AVERAGE_SESSIONS.find(
-                (session) => session.userId === Number(userId)
-            )
-            setUserSessions(sessions ? sessions.sessions : [])
-        }
-    }, [sessionsData, sessionsError, userId])
-
-    useEffect(() => {
-        if (!activityError && activityData.data) {
-            setUserActivity(activityData.data.sessions)
-        } else {
-            const activity = USER_ACTIVITY.find(
-                (activity) => activity.userId === Number(userId)
-            )
-            setUserActivity(activity ? activity.sessions : [])
-        }
-    }, [activityData, activityError, userId])
+        fetchData()
+    }, [userId])
 
     // Si userId est indéfini ou vide, on retourne une erreur ou on peut rediriger vers une autre page.
     if (!userId) {
@@ -101,7 +42,7 @@ function Dashboard() {
         )
     }
 
-    if (!currentUser || !userPerformance || !userSessions || !userActivity) {
+    if (!currentUser) {
         return (
             <main className="dashboard">
                 <h1>Aucun utilisateur trouvé</h1>
@@ -124,12 +65,16 @@ function Dashboard() {
             <div className="container">
                 <div className="charts">
                     <div className="chart-top">
-                        <ActivityBarChart activityData={userActivity} />
+                        <ActivityBarChart
+                            activityData={currentUser.activity.sessions}
+                        />
                     </div>
                     <div className="charts-bottom">
-                        <SessionsLineChart sessions={userSessions} />
+                        <SessionsLineChart
+                            sessions={currentUser.averageSessions.sessions}
+                        />
                         <PerformanceRadarChart
-                            performanceData={userPerformance}
+                            performanceData={currentUser.performance}
                         />
                         <ScorePieChart
                             score={currentUser.todayScore || currentUser.score}
