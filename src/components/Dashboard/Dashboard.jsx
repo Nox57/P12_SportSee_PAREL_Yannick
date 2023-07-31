@@ -25,10 +25,11 @@ function Dashboard() {
     useEffect(() => {
         async function fetchData() {
             setLoading(true)
-            const user = await UserDataService.getUserData(userId)
-            if (user) {
+            try {
+                const user = await UserDataService.getUserData(userId)
                 setCurrentUser(user)
-            } else {
+            } catch (error) {
+                console.error(error)
                 setCurrentUser(null)
             }
             setLoading(false)
@@ -52,9 +53,6 @@ function Dashboard() {
         return (
             <main className="dashboard">
                 <h1>Aucun utilisateur saisi</h1>
-                <p>
-                    Veuillez ajouter " /user/"ID de l'utilisateur" " dans l'URL.
-                </p>
             </main>
         )
     }
@@ -62,7 +60,8 @@ function Dashboard() {
     if (!currentUser) {
         return (
             <main className="dashboard">
-                <h1>Aucun utilisateur trouvé</h1>
+                <h1>Erreur lors du chargement des données utilisateur</h1>
+                <p>L'API est indisponible ou l'utilisateur n'existe pas.</p>
             </main>
         )
     }
