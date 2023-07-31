@@ -5,11 +5,16 @@ const SessionsLineChart = ({ sessions }) => {
     // Mapping des jours de la semaine
     const daysOfWeek = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
 
+    // Calcule de la moyenne
+    const sessionLengthAverage =
+        sessions.reduce((total, session) => total + session.sessionLength, 0) /
+        sessions.length
+
     // Ajouter des données fictives pour les jours 0 et 8 pour "lisser" la courbe et voir L et D
     const completeSessions = [
-        { day: 0, sessionLength: 0 },
+        { day: 0, sessionLength: sessionLengthAverage },
         ...sessions,
-        { day: 8, sessionLength: 0 },
+        { day: 8, sessionLength: sessionLengthAverage },
     ]
 
     const CustomTooltip = ({ active, payload }) => {
@@ -35,12 +40,15 @@ const SessionsLineChart = ({ sessions }) => {
                     top: 100,
                     right: 0,
                     left: 0,
-                    bottom: 5,
+                    bottom: 10,
                 }}
             >
                 <XAxis
                     dataKey="day"
                     tick={{ fill: '#FFFFFF', opacity: '0.5' }}
+                    tickLine={false}
+                    axisLine={false}
+                    padding={{ left: -20, right: -20 }} // Ajout d'un padding négatif pour lisser la courbe et ne pas afficher 0 et 8
                     tickFormatter={(day) =>
                         day === 0 || day === 8 ? '' : daysOfWeek[day - 1]
                     } // Jour de la semaine correspondant, vides pour les jours 0 et 8
@@ -52,6 +60,7 @@ const SessionsLineChart = ({ sessions }) => {
                     dataKey="sessionLength"
                     stroke="#ffffff"
                     activeDot={{ r: 7 }}
+                    dot={false}
                 />
             </LineChart>
         </div>

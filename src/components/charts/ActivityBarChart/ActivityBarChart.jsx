@@ -51,7 +51,11 @@ const ActivityBarChart = ({ activityData }) => {
                     margin={{ top: 20, right: 30, left: 30, bottom: 20 }}
                 >
                     <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                    <XAxis dataKey="day" tickFormatter={formatXAxis} />
+                    <XAxis
+                        dataKey="day"
+                        tickFormatter={formatXAxis}
+                        tickLine={false}
+                    />
                     <YAxis
                         yAxisId="right"
                         orientation="right"
