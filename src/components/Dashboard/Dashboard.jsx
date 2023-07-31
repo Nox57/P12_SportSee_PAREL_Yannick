@@ -20,17 +20,30 @@ function Dashboard() {
     const { id: userId } = useParams()
 
     const [currentUser, setCurrentUser] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         async function fetchData() {
+            setLoading(true)
             const user = await UserDataService.getUserData(userId)
             setCurrentUser(user)
+            setLoading(false)
         }
 
-        fetchData()
+        if (userId) {
+            fetchData()
+        }
     }, [userId])
 
-    // Si userId est indéfini ou vide, on retourne une erreur ou on peut rediriger vers une autre page.
+    if (loading) {
+        return (
+            <main className="dashboard">
+                <h1>Chargement des données...</h1>
+            </main>
+        )
+    }
+
+    // Si userId est indéfini ou vide, on retourne une erreur
     if (!userId) {
         return (
             <main className="dashboard">
