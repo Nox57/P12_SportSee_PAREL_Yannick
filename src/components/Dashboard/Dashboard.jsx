@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 // Components
 import KeyData from '../KeyData/KeyData'
+import ScorePieChart from '../charts/ScorePieChart/ScorePieChart'
+import PerformanceRadarChart from '../charts/PerformanceRadarChart/PerformanceRadarChart'
+import SessionsLineChart from '../charts/SessionsLineChart/SessionsLineChart'
+import ActivityBarChart from '../charts/ActivityBarChart/ActivityBarChart'
 // Services
 import UserDataService from '../../services/UserDataService'
 // Css
@@ -11,10 +15,6 @@ import CaloriesImg from '../../assets/calories.svg'
 import ProteineImg from '../../assets/proteine.svg'
 import GlucidesImg from '../../assets/glucides.svg'
 import LipidesImg from '../../assets/lipides.svg'
-import ScorePieChart from '../charts/ScorePieChart/ScorePieChart'
-import PerformanceRadarChart from '../charts/PerformanceRadarChart/PerformanceRadarChart'
-import SessionsLineChart from '../charts/SessionsLineChart/SessionsLineChart'
-import ActivityBarChart from '../charts/ActivityBarChart/ActivityBarChart'
 
 function Dashboard() {
     const { id: userId } = useParams()
@@ -77,7 +77,7 @@ function Dashboard() {
                     ''
                 )}
             </h1>
-            <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
+            <p>Félicitations ! Vous avez explosé vos objectifs hier 👏</p>
 
             <div className="container">
                 <div className="charts">

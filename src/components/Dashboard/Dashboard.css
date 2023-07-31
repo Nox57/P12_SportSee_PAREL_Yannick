@@ -41,3 +41,31 @@
     flex-direction: row;
     gap: 30px;
 }
+
+@media (max-width: 1380px) {
+    .dashboard {
+        margin-left: 40px;
+        margin-top: 0px;
+    }
+
+    .container {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .chart-top {
+        width: auto;
+    }
+
+    .charts-bottom {
+        flex-direction: row;
+    }
+
+    .nutriments {
+        margin-left: 0;
+        flex-direction: row;
+        width: 835px;
+        margin-top: 15px;
+        margin-bottom: 30px;
+    }
+}
