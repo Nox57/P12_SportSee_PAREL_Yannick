@@ -33,6 +33,11 @@ class UserDataService {
                 userActivity,
             ] = await Promise.all(urls)
 
+            // Si l'utilisateur n'est pas trouvé dans les données de l'API, on renvoie null
+            if (!userMainData.data) {
+                return null
+            }
+
             return new User(
                 userMainData.data.id,
                 userMainData.data.userInfos,
@@ -56,6 +61,11 @@ class UserDataService {
                 activity: USER_ACTIVITY.find(
                     (user) => user.userId === Number(userId)
                 ),
+            }
+
+            // Si l'utilisateur n'est pas trouvé dans les données mockées, on renvoie null
+            if (!mockData.id) {
+                return null
             }
 
             return new User(

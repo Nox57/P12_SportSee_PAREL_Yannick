@@ -26,7 +26,11 @@ function Dashboard() {
         async function fetchData() {
             setLoading(true)
             const user = await UserDataService.getUserData(userId)
-            setCurrentUser(user)
+            if (user) {
+                setCurrentUser(user)
+            } else {
+                setCurrentUser(null)
+            }
             setLoading(false)
         }
 
