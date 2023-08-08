@@ -16,6 +16,13 @@ class User {
         this.averageSessions = averageSessions
         this.activity = activity
     }
+
+    getUserScore() {
+        return [
+            { name: 'Score', value: this.todayScore * 100 },
+            { name: 'Reste', value: (1 - this.todayScore) * 100 },
+        ]
+    }
 }
 
 export default User

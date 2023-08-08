@@ -22,17 +22,12 @@ const ContentLegend = (props) => {
 }
 
 const ScorePieChart = ({ score }) => {
-    const userScore = [
-        { name: 'Score', value: score * 100 },
-        { name: 'Reste', value: (1 - score) * 100 },
-    ]
-
     return (
         <div className="score_container">
             <ResponsiveContainer>
                 <PieChart>
                     <Pie
-                        data={userScore}
+                        data={score}
                         dataKey="value"
                         startAngle={200}
                         endAngle={-200}
@@ -55,7 +50,7 @@ const ScorePieChart = ({ score }) => {
                 </PieChart>
             </ResponsiveContainer>
             <div className="score_label">
-                <p className="score_number">{Math.round(score * 100)}%</p>
+                <p className="score_number">{Math.round(score[0].value)}%</p>
                 <p className="score_text">de votre objectif</p>
             </div>
         </div>

@@ -92,9 +92,7 @@ function Dashboard() {
                         <PerformanceRadarChart
                             performanceData={currentUser.performance}
                         />
-                        <ScorePieChart
-                            score={currentUser.todayScore || currentUser.score}
-                        />
+                        <ScorePieChart score={currentUser.getUserScore()} />
                     </div>
                 </div>
                 <div className="nutriments">
