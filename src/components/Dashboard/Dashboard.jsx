@@ -87,7 +87,7 @@ function Dashboard() {
                     </div>
                     <div className="charts-bottom">
                         <SessionsLineChart
-                            sessions={currentUser.averageSessions.sessions}
+                            sessions={currentUser.getTransformedSessionsData()}
                         />
                         <PerformanceRadarChart
                             performanceData={currentUser.getTransformedPerformanceData()}

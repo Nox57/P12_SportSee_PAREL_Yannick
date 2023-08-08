@@ -5,18 +5,6 @@ const SessionsLineChart = ({ sessions }) => {
     // Mapping des jours de la semaine
     const daysOfWeek = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
 
-    // Calcule de la moyenne
-    const sessionLengthAverage =
-        sessions.reduce((total, session) => total + session.sessionLength, 0) /
-        sessions.length
-
-    // Ajouter des données fictives pour les jours 0 et 8 pour "lisser" la courbe et voir L et D
-    const completeSessions = [
-        { day: 0, sessionLength: sessionLengthAverage },
-        ...sessions,
-        { day: 8, sessionLength: sessionLengthAverage },
-    ]
-
     const CustomTooltip = ({ active, payload }) => {
         if (active && payload && payload.length) {
             return (
@@ -35,7 +23,7 @@ const SessionsLineChart = ({ sessions }) => {
             <LineChart
                 width={258}
                 height={263}
-                data={completeSessions}
+                data={sessions}
                 margin={{
                     top: 100,
                     right: 0,

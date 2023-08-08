@@ -49,6 +49,22 @@ class User {
             })
             .sort((a, b) => order.indexOf(a.kind) - order.indexOf(b.kind))
     }
+
+    getTransformedSessionsData() {
+        // Calcule de la moyenne
+        const sessionLengthAverage =
+            this.averageSessions.sessions.reduce(
+                (total, session) => total + session.sessionLength,
+                0
+            ) / this.averageSessions.sessions.length
+
+        // Ajouter des données fictives pour les jours 0 et 8 pour "lisser" la courbe et voir L et D
+        return [
+            { day: 0, sessionLength: sessionLengthAverage },
+            ...this.averageSessions.sessions,
+            { day: 8, sessionLength: sessionLengthAverage },
+        ]
+    }
 }
 
 export default User
