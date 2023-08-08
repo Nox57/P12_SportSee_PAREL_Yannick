@@ -11,15 +11,6 @@ import {
 import './ActivityBarChart.css'
 
 const ActivityBarChart = ({ activityData }) => {
-    if (!Array.isArray(activityData)) {
-        console.log(activityData)
-        return <div>Données non disponibles</div>
-    }
-
-    const minKg = Math.min(...activityData.map((item) => item.kilogram)) - 1
-    const minCalories =
-        Math.min(...activityData.map((item) => item.calories)) - 1
-
     const CustomTooltip = ({ active, payload }) => {
         if (active && payload && payload.length) {
             return (
@@ -46,7 +37,7 @@ const ActivityBarChart = ({ activityData }) => {
             </p>
             <ResponsiveContainer height={250}>
                 <BarChart
-                    data={activityData}
+                    data={activityData.sessions}
                     barGap={8}
                     margin={{ top: 20, right: 30, left: 30, bottom: 20 }}
                 >
@@ -60,7 +51,7 @@ const ActivityBarChart = ({ activityData }) => {
                         yAxisId="right"
                         orientation="right"
                         stroke="#9B9EAC"
-                        domain={[minKg, 'auto']}
+                        domain={[activityData.minKg, 'auto']}
                         axisLine={false}
                         tickLine={false}
                         tickCount={3}
@@ -69,7 +60,7 @@ const ActivityBarChart = ({ activityData }) => {
                         yAxisId="left"
                         orientation="left"
                         stroke="#82ca9d"
-                        domain={[minCalories, 'auto']}
+                        domain={[activityData.minCalories, 'auto']}
                         hide
                     />
                     <Tooltip content={<CustomTooltip />} />

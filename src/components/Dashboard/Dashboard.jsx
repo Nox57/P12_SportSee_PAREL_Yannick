@@ -82,7 +82,7 @@ function Dashboard() {
                 <div className="charts">
                     <div className="chart-top">
                         <ActivityBarChart
-                            activityData={currentUser.activity.sessions}
+                            activityData={currentUser.getTransformedActivityData()}
                         />
                     </div>
                     <div className="charts-bottom">

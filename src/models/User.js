@@ -65,6 +65,19 @@ class User {
             { day: 8, sessionLength: sessionLengthAverage },
         ]
     }
+
+    getTransformedActivityData() {
+        const minKg =
+            Math.min(...this.activity.sessions.map((item) => item.kilogram)) - 1
+        const minCalories =
+            Math.min(...this.activity.sessions.map((item) => item.calories)) - 1
+
+        return {
+            sessions: this.activity.sessions,
+            minKg,
+            minCalories,
+        }
+    }
 }
 
 export default User
