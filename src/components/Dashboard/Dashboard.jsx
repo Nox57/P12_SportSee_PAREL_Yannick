@@ -90,7 +90,7 @@ function Dashboard() {
                             sessions={currentUser.averageSessions.sessions}
                         />
                         <PerformanceRadarChart
-                            performanceData={currentUser.performance}
+                            performanceData={currentUser.getTransformedPerformanceData()}
                         />
                         <ScorePieChart score={currentUser.getUserScore()} />
                     </div>

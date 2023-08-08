@@ -23,6 +23,32 @@ class User {
             { name: 'Reste', value: (1 - this.todayScore) * 100 },
         ]
     }
+
+    getTransformedPerformanceData() {
+        const translateAndOrderKind = {
+            intensity: 'Intensité',
+            speed: 'Vitesse',
+            strength: 'Force',
+            endurance: 'Endurance',
+            energy: 'Energie',
+            cardio: 'Cardio',
+        }
+
+        const order = Object.values(translateAndOrderKind)
+
+        return this.performance.data
+            .map((item) => {
+                return {
+                    userId: this.id,
+                    kind:
+                        translateAndOrderKind[
+                            this.performance.kind[item.kind]
+                        ] || this.performance.kind[item.kind],
+                    value: item.value,
+                }
+            })
+            .sort((a, b) => order.indexOf(a.kind) - order.indexOf(b.kind))
+    }
 }
 
 export default User

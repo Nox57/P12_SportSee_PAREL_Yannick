@@ -9,35 +9,11 @@ import {
 import './PerformanceRadarChart.css'
 
 const PerformanceRadarChart = ({ performanceData }) => {
-    const translateAndOrderKind = {
-        intensity: 'Intensité',
-        speed: 'Vitesse',
-        strength: 'Force',
-        endurance: 'Endurance',
-        energy: 'Energie',
-        cardio: 'Cardio',
-    }
-
-    const order = Object.values(translateAndOrderKind)
-
-    // Transformer les données pour les rendre utilisables avec Recharts
-    const transformedData = performanceData.data
-        .map((item) => {
-            return {
-                userId: performanceData.userId,
-                kind:
-                    translateAndOrderKind[performanceData.kind[item.kind]] ||
-                    performanceData.kind[item.kind],
-                value: item.value,
-            }
-        })
-        .sort((a, b) => order.indexOf(a.kind) - order.indexOf(b.kind))
-
     return (
         <div className="radar_container">
             <RadarChart
                 outerRadius={85}
-                data={transformedData}
+                data={performanceData}
                 width={240}
                 height={240}
             >
